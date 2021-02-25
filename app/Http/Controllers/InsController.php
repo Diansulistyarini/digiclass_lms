@@ -8,6 +8,6 @@ class InsController extends Controller
 {
     public function dashboardins()
     {
-        return view('ins.dashboardins');
+        return view('ins.index');
     }
 }

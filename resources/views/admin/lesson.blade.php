@@ -1,6 +1,6 @@
 @extends('layouts/main')
 
-@section('title', 'Instructor Data')
+@section('title', 'Lesson')
 
 @section('container')
     
@@ -61,35 +61,22 @@
                                         <thead class="thead-dark">
                                             <tr>
                                                 <th scope="col" class="text-center">NO</th>
-                                                <th scope="col" class="text-center">Nama</th>
-                                                <th scope="col" class="text-center">Email</th>
-                                                <th scope="col" class="text-center">Phone</th>
-                                                <th scope="col" class="text-center">Role</th>
+                                                <th scope="col" class="text-center">Subject Nama</th>
+                                                <th scope="col" class="text-center">Class Category</th>
                                                 <th scope="col" class="text-center">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach($users as $u)
+                                            @foreach($lesson as $l)
                                                 <tr>
                                                     <th scope="row" class="text-center">{{ $loop->iteration }}</th>
-                                                    <td class="text-center">{{ $u->name }}</td>
-                                                    <td class="text-center">{{ $u->email }}</td>
-                                                    <td class="text-center">{{ $u->phone }}</td>
-                                                    <td class="text-center">{{ $u->role }}</td>
-                                            
+                                                    <td class="text-center">{{ $l->subject_name }}</td>
+                                                    <td class="text-center">{{ $l->class_category }}</td>
                                                     <td class="text-center">
-                                                        <a data-toggle="modal" data-target="#modalUpdate{{ $u->id }}" class="btn btn-small text-success">
+                                                        <a data-toggle="modal" data-target="#modalUpdate{{ $l->id }}" class="btn btn-small text-success">
                                                             <i class="fa fa-edit"></i><span class="ml-2">Edit</span>
                                                         </a>
-                                                        <a href="/user/destroy/{{ $u->id }}" class="btn btn-small text-danger"><i class=" fa fa-trash"></i><span class="ml-2">Delete</span></a>
-                                                        {{-- <form action="/user/destroy/{{ $u->id }}" method="POST"
-                                                            class="d-inline">
-                                                            @method('delete')
-                                                            @csrf
-                                                            <button type="submit" class="btn btn-small text-danger">
-                                                                <i class=" fa fa-trash"></i><span class="ml-2">Delete</span>
-                                                            </button>
-                                                        </form> --}}
+                                                        <a href="/lesson/destroy/{{ $l->id }}" class="btn btn-small text-danger"><i class=" fa fa-trash"></i><span class="ml-2">Delete</span></a>
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -104,56 +91,30 @@
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title">Add Data Instructor </h5>
+                                    <h5 class="modal-title">Add Data Lesson </h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <form method="post" action="/user/create">
+                                    <form method="post" action="/lesson/create">
                                         {{ csrf_field() }}
                                     <div class="form-group"> 
-                                        <label>Name </label>
-                                        <input type="text" name="name" id="name" class="form-control" placeholder="Your Name" aria-label="Name" aria-describedby="basic-addon1">
-                                            @if($errors->has('name'))
+                                        <label>Subject Name </label>
+                                        <input type="text" name="subject_name" id="subject_name" class="form-control" placeholder="Subject Name" aria-label="subject_name" aria-describedby="basic-addon1">
+                                            @if($errors->has('subject_name'))
                                                     <div class="text-danger">
-                                                        {{ $errors->first('name')}}
+                                                        {{ $errors->first('subject_name')}}
                                                     </div>
                                             @endif
                                     </div>
+                                    
                                     <div class="form-group">
-                                        <label>Email </label>
-                                        <input type="text" name="email" id="email" class="form-control" placeholder="Your Email" aria-label="Name" aria-describedby="basic-addon1">
-                                            @if($errors->has('email'))
+                                        <label>Class Category </label>
+                                        <input type="text" name="class_category" id="class_category" class="form-control" placeholder="Class Category" aria-label="class_category" aria-describedby="basic-addon1">
+                                            @if($errors->has('class_category'))
                                                     <div class="text-danger">
-                                                        {{ $errors->first('email')}}
-                                                    </div>
-                                            @endif
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Password </label>
-                                        <input type="password" name="password" id="password" class="form-control" placeholder="Password " aria-label="Password " aria-describedby="basic-addon1">
-                                            @if($errors->has('password'))
-                                                    <div class="text-danger">
-                                                        {{ $errors->first('password')}}
-                                                    </div>
-                                            @endif
-                                    </div>
-                                    <div class="form-group">  
-                                        <label>Phone </label>
-                                        <input type="text" name="phone" id="phone" class="form-control" placeholder="Phone" aria-label="Phone" aria-describedby="basic-addon1">
-                                            @if($errors->has('phone'))
-                                                    <div class="text-danger">
-                                                        {{ $errors->first('phone')}}
-                                                    </div>
-                                            @endif
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Role </label>
-                                        <input type="text" name="role" id="role" class="form-control" placeholder="Role" aria-label="Role" aria-describedby="basic-addon1">
-                                            @if($errors->has('role'))
-                                                    <div class="text-danger">
-                                                        {{ $errors->first('role')}}
+                                                        {{ $errors->first('class_category')}}
                                                     </div>
                                             @endif
                                     </div>
@@ -169,37 +130,30 @@
                         <!-- End Add Modal -->
 
                         <!-- Modal Update -->
-                        @foreach($users as $u)
-                        <div class="modal fade" id="modalUpdate{{ $u->id }}" tabindex="-1" aria-labelledby="modalUpdate" aria-hidden="true">
+                        @foreach($lesson as $l)
+                        <div class="modal fade" id="modalUpdate{{ $l->id }}" tabindex="-1" aria-labelledby="modalUpdate" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title">Edit Data Instructor</h5>
+                                        <h5 class="modal-title">Edit Data Lesson</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <form method="post" action="/user/update/{{$u->id}}" >
+                                        <form method="post" action="/lesson/update/{{ $l->id }}" >
                                             @csrf
                                             @method('put')
-                                            <input type="hidden" class="form-control" id="id" name="id" value="{{$u->id}}">
+                                            <input type="hidden" class="form-control" id="id" name="id" value="{{ $l->id }}">
                                         <div class="form-group">
-                                            <label for="">Name</label>
-                                            <input type="text" class="form-control" id="name" name="name" value="{{$u->name}}">
+                                            <label for="">Subject Name</label>
+                                            <input type="text" class="form-control" id="subject_name" name="subject_name" value="{{ $l->subject_name }}">
                                         </div>
                                         <div class="form-group">
-                                            <label for="">Email</label>
-                                            <input type="text" class="form-control" id="email" name="email" value="{{ $u->email}}">
+                                            <label for="">Class Category</label>
+                                            <input type="text" class="form-control" id="class_category" name="class_category" value="{{ $l->class_category }}">
                                         </div>
-                                        <div class="form-group">
-                                            <label for="">Phone</label>
-                                            <input type="text" class="form-control" id="phone" name="phone" value="{{ $u->phone}}">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="">Role</label>
-                                            <input type="text" class="form-control" id="role" name="role" value="{{ $u->role}}">
-                                        </div>
+                                        
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                             <button type="submit" class="btn btn-success">Update</button>

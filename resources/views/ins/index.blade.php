@@ -1,6 +1,6 @@
 @extends('layouts/main')
 
-@section('title', 'Dashboard Admin')
+@section('title', 'Dashboard Instructor')
 
 @section('container')
     
@@ -56,7 +56,7 @@
                             <div class="d-flex d-lg-flex d-md-block align-items-center">
                                 <div>
                                     <div class="d-inline-flex align-items-center">
-                                        <h2 class="text-dark mb-1 font-weight-medium">{{ $count_ins }}</h2>
+                                        <h2 class="text-dark mb-1 font-weight-medium">18</h2>
                                         {{-- <span
                                             class="badge bg-primary font-12 text-white font-weight-medium badge-pill ml-2 d-lg-block d-md-none">+18.33%
                                         </span> --}}
@@ -84,7 +84,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card border-right">
+                    {{-- <div class="card border-right">
                         <div class="card-body">
                             <div class="d-flex d-lg-flex d-md-block align-items-center">
                                 <div>
@@ -100,8 +100,8 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="card">
+                    </div> --}}
+                    {{-- <div class="card">
                         <div class="card-body">
                             <div class="d-flex d-lg-flex d-md-block align-items-center">
                                 <div>
@@ -113,7 +113,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
                 <!-- *************************************************************** -->
                 <!-- End First Cards -->
