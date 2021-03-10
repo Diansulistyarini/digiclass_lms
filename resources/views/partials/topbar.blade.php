@@ -48,7 +48,8 @@
                     <!-- ============================================================== -->
                     <ul class="navbar-nav float-left mr-auto ml-3 pl-1">
                         <!-- Notification -->
-                        <li class="nav-item dropdown">
+                        <b>Time:<span class="jam ml-2" style="width: 60px"></span></b>
+                        {{-- <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle pl-md-3 position-relative" href="javascript:void(0)"
                                 id="bell" role="button" data-toggle="dropdown" aria-haspopup="true"
                                 aria-expanded="false">
@@ -121,12 +122,12 @@
                                     </li>
                                 </ul>
                             </div>
-                        </li>
+                        </li> --}}
                         <!-- End Notification -->
                         <!-- ============================================================== -->
                         <!-- create new -->
                         <!-- ============================================================== -->
-                        <li class="nav-item dropdown">
+                        {{-- <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i data-feather="settings" class="svg-icon"></i>
@@ -137,8 +138,8 @@
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#">Something else here</a>
                             </div>
-                        </li>
-                        <li class="nav-item d-none d-md-block">
+                        </li> --}}
+                        {{-- <li class="nav-item d-none d-md-block">
                             <a class="nav-link" href="javascript:void(0)">
                                 <div class="customize-input">
                                     <select
@@ -150,7 +151,7 @@
                                     </select>
                                 </div>
                             </a>
-                        </li>
+                        </li> --}}
                     </ul>
                     <!-- ============================================================== -->
                     <!-- Right side toggle and nav items -->
@@ -176,33 +177,35 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
-                                <img src="{{asset ('images/users/profile-pic.jpg')}}" alt="user" class="rounded-circle"
-                                    width="40">
+                                <img src="{{asset ('photo/'.Auth::user()->photo)}}" alt="user" class="rounded-circle"
+                                    width="40" height="50">
                                 <span class="ml-2 d-none d-lg-inline-block"><span>Hello,</span> <span
                                         class="text-dark">{{ Auth::user()->name }}</span> <i data-feather="chevron-down"
                                         class="svg-icon"></i></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
-                                {{-- <a class="dropdown-item" href="javascript:void(0)"><i data-feather="user"
+                                 {{-- <div class="dropdown-divider"></div>
+                                <div class="pl-4 p-3"><a href="{{ route('change.password') }}" class="btn btn-sm btn-info">View Profile</a></div> --}}
+                                <a class="dropdown-item" href="/viewprofile"><i data-feather="user"
                                         class="svg-icon mr-2 ml-1"></i>
                                     My Profile</a>
-                                <a class="dropdown-item" href="javascript:void(0)"><i data-feather="credit-card"
+                                {{-- <a class="dropdown-item" href="javascript:void(0)"><i data-feather="credit-card"
                                         class="svg-icon mr-2 ml-1"></i>
                                     My Balance</a>
                                 <a class="dropdown-item" href="javascript:void(0)"><i data-feather="mail"
                                         class="svg-icon mr-2 ml-1"></i>
-                                    Inbox</a>
+                                    Inbox</a> --}}
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="javascript:void(0)"><i data-feather="settings"
-                                        class="svg-icon mr-2 ml-1"></i>
-                                    Account Setting</a> --}}
+                                <a class="dropdown-item" href="{{ route('change.password') }}"><i data-feather="key" class="svg-icon mr-2 ml-1"></i>
+                                    Change Password
+                                </a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                     <i data-feather="power" class="svg-icon mr-2 ml-1"></i>
                                         Logout
                                 </a>
-                                <div class="dropdown-divider"></div>
-                                <div class="pl-4 p-3"><a href="javascript:void(0)" class="btn btn-sm btn-info">View Profile</a></div>
+                                {{-- <div class="dropdown-divider"></div>
+                                <div class="pl-4 p-3"><a href="{{ route('change.password') }}" class="btn btn-sm btn-info">Change Password</a></div> --}}
                             </div>
                         </li>
                         <!-- ============================================================== -->

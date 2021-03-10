@@ -19,6 +19,13 @@
                                     class="hide-menu">Dashboard</span></a>
                         </li>
                         @endif
+
+                        @if (auth()->user()->role == "student")
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/dashstudent"
+                                aria-expanded="false"><i data-feather="home" class="feather-icon"></i><span
+                                    class="hide-menu">Dashboard</span></a>
+                        </li>
+                        @endif
                         
                         <li class="list-divider"></li>
                         <li class="nav-small-cap"><span class="hide-menu">Applications</span></li>
@@ -27,6 +34,9 @@
                                 aria-expanded="false"><i class="fas fa-chalkboard-teacher"></i><span
                                     class="hide-menu">Instructor
                                 </span></a>
+                        </li>
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/instansi" aria-expanded="false"><i class="fas fa-school"></i>
+                            <span class="hide-menu">Instansi</span></a>
                         </li>
                         <li class="sidebar-item"> <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
                         <i class="fas fa-users"></i><span class="hide-menu">Member </span></a>
@@ -42,14 +52,20 @@
                             </li>
                         </ul>
                         </li>
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/class" aria-expanded="false"><i class="fas fa-book"></i>
+                            <span class="hide-menu">Class</span></a>
+                        </li>
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/schedule" aria-expanded="false"><i class="far fa-calendar-alt"></i>
+                            <span class="hide-menu">Schedule</span></a>
+                        </li>
                         <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/lesson" aria-expanded="false"><i class="fas fa-book"></i>
                             <span class="hide-menu">Lesson</span></a>
                         </li>
-                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="app-calendar.html" aria-expanded="false"><i class="far fa-folder-open"></i>
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/moduled" aria-expanded="false"><i class="far fa-folder-open"></i>
                             <span class="hide-menu">Modul</span></a>
                         </li>
-                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="app-calendar.html" aria-expanded="false"><i class="far fa-question-circle"></i>
-                            <span class="hide-menu">Quiz</span></a>
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/assignment" aria-expanded="false"><i class="fas fa-tasks"></i>
+                            <span class="hide-menu">Assignment</span></a>
                         </li>
                         <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="app-calendar.html" aria-expanded="false"><i class="fas fa-file-invoice-dollar"></i>
                             <span class="hide-menu">Billings</span></a>
@@ -71,9 +87,38 @@
                                 <span class="hide-menu"> Industry Class</span></a>
                             </li>
                         </ul>
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/classes" aria-expanded="false"><i class="fas fa-book"></i>
+                            <span class="hide-menu">Class</span></a>
+                        </li>
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/scheduls" aria-expanded="false"><i class="far fa-calendar-alt"></i>
+                            <span class="hide-menu">Schedule</span></a>
+                        </li>
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/lessons" aria-expanded="false"><i class="fas fa-book"></i>
+                            <span class="hide-menu">Lesson</span></a>
+                        </li>
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/modulss" aria-expanded="false"><i class="far fa-folder-open"></i>
+                            <span class="hide-menu">Modul</span></a>
+                        </li>
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/assignments" aria-expanded="false"><i class="fas fa-tasks"></i>
+                            <span class="hide-menu">Assignment</span></a>
+                        </li>
+                        @endif
+
+                        @if (auth()->user()->role == "student")
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/class" aria-expanded="false"><i class="fas fa-book"></i>
+                            <span class="hide-menu">Class</span></a>
+                        </li>
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/schedule" aria-expanded="false"><i class="far fa-calendar-alt"></i>
+                            <span class="hide-menu">Schedule</span></a>
                         </li>
                         <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/lesson" aria-expanded="false"><i class="fas fa-book"></i>
                             <span class="hide-menu">Lesson</span></a>
+                        </li>
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/moduled" aria-expanded="false"><i class="far fa-folder-open"></i>
+                            <span class="hide-menu">Modul</span></a>
+                        </li>
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="/assignment" aria-expanded="false"><i class="fas fa-tasks"></i>
+                            <span class="hide-menu">Assignment</span></a>
                         </li>
                         @endif
                     </nav>

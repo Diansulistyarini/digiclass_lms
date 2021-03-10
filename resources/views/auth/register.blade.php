@@ -61,6 +61,24 @@
                             </div>
                         </div>
 
+                        {{-- <div class="form-group row">
+                            <label for="gender" class="col-md-4 col-form-label text-md-right">{{ __('Gender') }}</label>
+
+                            <div class="col-md-6">
+                                <select class="custom-select my-1 mr-sm-2" id="gender" name="gender" @error('gender') is-invalid @enderror name="gender" value="{{ old('gender') }}" required autocomplete="gender"> 
+                                    <option selected >Choose...</option>
+                                    <option value="laki-laki">Laki-laki</option>
+                                    <option value="perempuan">Perempuan</option> 
+                                </select> 
+
+                                @error('gender')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
                         <div class="form-group row">
                             <label for="phone" class="col-md-4 col-form-label text-md-right">{{ __('Phone') }}</label>
 
@@ -87,7 +105,7 @@
                                     </span>
                                 @enderror
                             </div>
-                        </div>
+                        </div> --}}
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">

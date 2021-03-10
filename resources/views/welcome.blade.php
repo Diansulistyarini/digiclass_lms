@@ -9,6 +9,10 @@
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
 
+        <script type="text/javascript"
+        src="https://app.sandbox.midtrans.com/snap/snap.js"
+        data-client-key="SB-Mid-client-y5TtpIOlSRzwbREL"></script>
+
         <!-- Styles -->
         <style>
             html, body {
@@ -64,14 +68,17 @@
         </style>
     </head>
     <body>
+        <button class="btn btn-primary" id="btn-bayar">Bayar</button>
         <div class="flex-center position-ref full-height">
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
                     @if (Auth::user()->role == 'admin')
                     <a href="{{ route('dashboardadmin') }}">Home</a>
-                    @else
+                    @elseif(Auth::user()->role == 'instructor')
                     <a href="{{ route('dashboardins') }}">Home</a>
+                    @else
+                    <a href="{{ route('dashstudent') }}">Home</a>
                     @endif
                     @else
                     <a href="{{ route('login') }}">Login</a>
@@ -101,4 +108,17 @@
             </div>
         </div>
     </body>
+    <script>
+        document.querySelector('#btn-bayar').addEventListener
+        ('click', async () => {
+            const response = await fetch("{{ route('payment') }}")
+            const token = await response.text()
+            snap.pay(token)
+            // fetch("{{ route('payment') }}")
+            // .then(response => response.text())
+            // .then(token => {
+            //     snap.pay(token)
+            // })
+        })
+    </script>
 </html>

@@ -37,6 +37,7 @@
                         {{ Auth::user()->name }}
 
                     </div>
+                    
                 </div>
             </div>
             <!-- ============================================================== -->
@@ -63,6 +64,7 @@
                                                 <th scope="col" class="text-center">NO</th>
                                                 <th scope="col" class="text-center">Nama</th>
                                                 <th scope="col" class="text-center">Email</th>
+                                                <th scope="col" class="text-center">Gender</th>
                                                 <th scope="col" class="text-center">Phone</th>
                                                 <th scope="col" class="text-center">Role</th>
                                                 <th scope="col" class="text-center">Action</th>
@@ -74,6 +76,7 @@
                                                     <th scope="row" class="text-center">{{ $loop->iteration }}</th>
                                                     <td class="text-center">{{ $u->name }}</td>
                                                     <td class="text-center">{{ $u->email }}</td>
+                                                    <td class="text-center">{{ $u->gender }}</td>
                                                     <td class="text-center">{{ $u->phone }}</td>
                                                     <td class="text-center">{{ $u->role }}</td>
                                             
@@ -81,15 +84,7 @@
                                                         <a data-toggle="modal" data-target="#modalUpdate{{ $u->id }}" class="btn btn-small text-success">
                                                             <i class="fa fa-edit"></i><span class="ml-2">Edit</span>
                                                         </a>
-                                                        <a href="/user/destroy/{{ $u->id }}" class="btn btn-small text-danger"><i class=" fa fa-trash"></i><span class="ml-2">Delete</span></a>
-                                                        {{-- <form action="/user/destroy/{{ $u->id }}" method="POST"
-                                                            class="d-inline">
-                                                            @method('delete')
-                                                            @csrf
-                                                            <button type="submit" class="btn btn-small text-danger">
-                                                                <i class=" fa fa-trash"></i><span class="ml-2">Delete</span>
-                                                            </button>
-                                                        </form> --}}
+                                                        <a data-toggle="modal" data-target="#deleteData{{$u->id}}" class="btn btn-small text-danger"><i class=" fa fa-trash"></i><span class="ml-2">Delete</span></a>
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -139,6 +134,21 @@
                                                     </div>
                                             @endif
                                     </div>
+
+                                    <div class="form-group">
+                                        <label>Gender </label>
+                                        <select class="custom-select my-1 mr-sm-2" id="gender" name="gender" value="{{ old('gender') }}">
+                                            <option selected>Choose...</option>
+                                            <option value="laki-laki">Laki-laki</option>
+                                            <option value="perempuan">Perempuan</option>
+                                        </select>
+                                            @if($errors->has('gender'))
+                                                    <div class="text-danger">
+                                                        {{ $errors->first('gender')}}
+                                                    </div>
+                                            @endif
+                                    </div>
+                                      
                                     <div class="form-group">  
                                         <label>Phone </label>
                                         <input type="text" name="phone" id="phone" class="form-control" placeholder="Phone" aria-label="Phone" aria-describedby="basic-addon1">
@@ -193,6 +203,14 @@
                                             <input type="text" class="form-control" id="email" name="email" value="{{ $u->email}}">
                                         </div>
                                         <div class="form-group">
+                                            <label for="">Gender</label>
+                                            <select class="custom-select my-1 mr-sm-2" id="gender" name="gender" value="{{ $u->gender }}"> 
+                                                <option selected >Choose...</option>
+                                                <option value="laki-laki">Laki-laki</option>
+                                                <option value="perempuan">Perempuan</option> 
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
                                             <label for="">Phone</label>
                                             <input type="text" class="form-control" id="phone" name="phone" value="{{ $u->phone}}">
                                         </div>
@@ -213,6 +231,34 @@
                         @endforeach
                         <!-- End Modal UPDATE -->
 
+                        <!-- Modal Delete -->
+                        @foreach($users as $u)
+                        <div class="modal" tabindex="-1" id="deleteData{{$u->id}}">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Delete Data </h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Apakah Anda Yakin Ingin Menghapus Data Ini</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <form action="/user/destroy/{{$u->id}}" method="post">
+                                            @csrf
+                                            @method('delete')
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
+                         <!-- End Modal Delete  -->
+
                     </div>
                 </div>
             </div>
@@ -220,4 +266,5 @@
         <!-- ============================================================== -->
         <!-- End Page wrapper  -->
         <!-- ============================================================== -->
+        
 @endsection
