@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Schedule;
+use App\Classes;
 
 class ScheduleController extends Controller
 {
     public function index(){
         $schedule = Schedule::all();
-        return view('admin.schedule.index', ['schedule'=>$schedule]);
+        $classes = Classes::all();
+        return view('admin.schedule.index', compact('schedule', 'classes'));
     }
 
     public function create(Request $request){
@@ -19,7 +21,7 @@ class ScheduleController extends Controller
             'time' => $request->time,
             'class_category' => $request->class,
             'link_zoom' => $request->link,
-            'due_date' => $request->due
+            // 'due_date' => $request->due
         ]);
 
         return redirect('/schedule');
@@ -38,7 +40,7 @@ class ScheduleController extends Controller
         $update->time = $request->time;
         $update->class_category = $request->class;
         $update->link_zoom = $request->link;
-        $update->due_date = $request->due;
+        // $update->due_date = $request->due;
         $update->save();
 
         return redirect('/schedule');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Assignment;
+use App\Classes;
 use App\Modul;
 use Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -27,7 +28,8 @@ class AssignmentController extends Controller
     public function index()
     {
         $ass = Assignment::all();
-        return view('admin.assignment.index',['ass'=>$ass]);
+        $classes = Classes::all();
+        return view('admin.assignment.index', compact('ass','classes'));
     }
 
     public function create( Request $request)

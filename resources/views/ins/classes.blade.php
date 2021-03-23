@@ -40,36 +40,41 @@
                     </div>
                 </div>
             </div>
-            <!-- ============================================================== -->
             <!-- End Bread crumb and right sidebar toggle -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
+
             <!-- Container fluid  -->
-            <!-- ============================================================== -->
-            <div class="container-fluid">
+
+            <div class="container">
                 <!-- Start First Cards -->
-                @foreach ($classes as $c)
-                <div class="card-group col-lg-3" style="width: 18rem;">
-                    <div class="card">
-                      <img class="card-img-top" src="{{ asset ('image_class/'. $c->image) }}" alt="Card image cap">
-                      <div class="card-body">
-                        <h5 class="card-title">{{ $c->category }}</h5>
-                        
-                      </div>
-                    </div>
-                  </div>
-                {{-- <div class="card-group" style="width: 18rem;">
-                    <div class="card">
-                        <img class="card-img-top" src="{{ asset ('image_class/'. $c->image) }}" alt="Card image cap">
-                        <div class="card-body">
-                        <p class="card-text-center">{{ $c->category }}</p>
+            <div class="card shadow mb-4 mt-3">
+                @if($classes->count() > 0)
+                <div class="row ml-2 mr-2">
+                    @foreach($classes as $c)
+                    <div class="col-md-4 mt-4">
+                        <div class="card shadow mb-6">
+                            <img class="card-img-top" src="{{ asset ('image_class/'. $c->image) }}" alt="Card image cap">
+                            <div class="card-body">
+                            <a class="card-text" style="color: black" href="/data">{{ $c->category }}</a>
+                            {{-- <p class="card-text">Deskripsi : {{ $c->deskripsi }}</p>
+                            <p class="card-text">Link Video Pembelajaran : {{ $c->video }}</p> --}}
+                           
+                            </div>
                         </div>
+                        </a>
                     </div>
-                </div> --}}
-                @endforeach
-                <!-- End First Cards -->
-            </div>
-            <!-- End Container fluid  -->
+                    @endforeach
+                </div>
+                @else
+                <div class="row justify-content-center" style="margin-top: 15%">
+                    <div class="col text-center">
+                        <b>Project Belum Tersedia</b>
+                    </div>
+                </div>
+                @endif
+            <!-- End First Cards -->
+
+        </div>
+        <!-- End Container fluid  -->
         </div>
         <!-- End Page wrapper  -->
 @endsection

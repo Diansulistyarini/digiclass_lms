@@ -46,8 +46,8 @@
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">DataTables
                     <span>
-                        <a data-toggle="modal" data-target="#addData" class="text-primary float-right">
-                            <i class="fas fa-plus"><span class="ml-2">Add Data</span></i>
+                        <a data-toggle="modal" data-target="#modalNilai{{ $a->id }}" class="text-primary float-right">
+                            <i class="fas fa-plus"><span class="ml-2">Grading Assignment </span></i>
                         </a>
                     </span>
                 </h6>
@@ -122,14 +122,7 @@
 
                             <div class="form-group">
                                 <label>Class Category</label>
-                                <select class="custom-select my-1 mr-sm-2" id="class" name="class" class="form-control" placeholder="Class Category" aria-label="class" aria-describedby="basic-addon1"> 
-                                    <option value="0" selected disabled>Choose...</option>
-                                    @foreach ($classes as $c)
-                                        <option value="{{ $c->id }}">
-                                            {{ $c->category }}
-                                        </option>
-                                    @endforeach
-                                </select> 
+                                <input type="text" name="class" id="class" class="form-control" aria-label="cclass" aria-describedby="basic-addon1">
                                 @if($errors->has('class'))
                                 <div class="text-danger">
                                     {{ $errors->first('class')}}
@@ -230,15 +223,8 @@
                             </div>
 
                             <div class="form-group">
-                                <label>Class Category</label>
-                                <select class="custom-select my-1 mr-sm-2" id="class" name="class" class="form-control" aria-label="class" aria-describedby="basic-addon1" value="{{ old('category')}}"> 
-                                    <option value="0" selected disabled>Choose...</option>
-                                    @foreach ($classes as $c)
-                                        <option value="{{ $c->id }}">
-                                            {{ $c->category }}
-                                        </option>
-                                    @endforeach
-                                </select>
+                                <!-- <label>Class Category</label> -->
+                                <input type="hidden" name="class" value="{{$a->class_category}}" id="class" class="form-control" aria-label="cclass" aria-describedby="basic-addon1">
                                 @if($errors->has('class'))
                                 <div class="text-danger">
                                     {{ $errors->first('class')}}

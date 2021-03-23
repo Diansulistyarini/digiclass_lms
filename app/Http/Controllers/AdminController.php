@@ -5,10 +5,15 @@ namespace App\Http\Controllers;
 use App\Classes;
 use App\Lesson;
 use App\User;
-use DataTables;
+use App\Modul;
+use App\Schedule;
+use Barryvdh\DomPDF\Facade as PDF;
+// use DataTables;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
@@ -35,13 +40,19 @@ class AdminController extends Controller
 
             return back()->with('success', 'You are changed your password');
         } else {
-            return back()->withError(['error' => 'Make sure you fill your password']);
+            return back()->withError(['error', 'Make sure you fill your password']);
         }
     }
 
     public function dashboardadmin()
     {
-        return view('admin.index',['count_ins' => User::where('role', 'instructor')->count()]);
+        $countStudent = User::where('role', 'student')->count();
+        $countInstructor = User::where('role', 'instructor')->count();
+        $countJadwal = Schedule::all()->count();
+        $countClass = Classes::all()->count();
+        $jadwals = Schedule::all();
+        $classes = Classes::all();
+        return view('admin.index', compact('countStudent', 'countInstructor', 'countJadwal', 'countClass', 'jadwals', 'classes' ));
     }
 
     public function user()
@@ -50,25 +61,13 @@ class AdminController extends Controller
         return view('admin.data', ['users' => $users]);
     }
 
-    // protected function create(array $data)
-    // {
-    //     User::create([
-    //         'name' => $data['name'],
-    //         'email' => $data['email'],
-    //         'password' => Hash::make($data['password']),
-    //         'gender' => $data['gender'],
-    //         'phone' => $data['phone'],
-    //         'role' => $data['role'],
-    //     ]);
-    //     return redirect('/user');
-    // }
-
     public function create(Request $request)
     {
+        Session::flash('sukses','Successfully Adding Data');
         User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($request->password),
+            'password' => Hash::make('12345678'),
             'gender' => $request->gender,
             'phone' => $request->phone,
             'role' => $request->role
@@ -78,6 +77,7 @@ class AdminController extends Controller
 
     public function update(Request $request, $id)
     {
+        Session::flash('sukses','Successfully Changed Data');
         $users = User::find($id);
         $users->name = $request->name;
         $users->email = $request->email;
@@ -91,16 +91,11 @@ class AdminController extends Controller
 
     public function destroy($id)
     {
+        Session::flash('sukses','Successfully Delete Data');
         User::destroy($id);
         return redirect('/user');
     }
 
-    // public function destroy($id)
-    // {
-    //     $users = User::find($id);
-    //     $users->delete();
-    //     return redirect('/user')->with('statusDelete', 'Data Berhasil Dihapus!');
-    // }
     // Data Lesson
     public function lesson()
     {
@@ -110,6 +105,7 @@ class AdminController extends Controller
 
     public function create_lesson(Request $request)
     {
+        Session::flash('sukses','Successfully Adding Data');
         Lesson::create([
             'subject_name' => $request->subject_name,
             'class_category' => $request->class_category
@@ -153,9 +149,12 @@ class AdminController extends Controller
         $users->phone = $request->phone;
         $users->gender = $request->gender;
         $users->photo = $name_file;
+        // $users->class = $request->class;
         $users->save();
-
-        return back()->with('success', 'You have succeess in setting Your Profile');
+        
+        Session::flash('sukses','You have succeess in setting Your Profile');
+        return back();
+        // return back()->with('success', 'You have succeess in setting Your Profile');
     }
 
     // Classes
@@ -178,14 +177,17 @@ class AdminController extends Controller
         Classes::create([
             'category' => $request->category,
             'deskripsi' => $request->deskripsi,
+            'name_ins' => $request->name_ins,
             'image' => $name_file ,
             'video'=> $request->video
         ]);
+        Session::flash('sukses','Successfully Adding Data');
         return redirect('/class');
     }
 
     public function update_class(Request $request, $id)
     {
+        Session::flash('sukses','Successfully Changed Data');
         $image = $request->file('image');
         $name_file = $image->getClientOriginalName();
         $image->move(base_path('/public/image_class'), $name_file);
@@ -193,11 +195,94 @@ class AdminController extends Controller
         $class = Classes::find($id);
         $class->category = $request->category;
         $class->deskripsi = $request->deskripsi;
+        $class->name_ins = $request->name_ins;
         $class->image = $name_file;
         $class->video = $request->video;
         $class->save();
+        
+        return redirect('/class');
+    }
 
-        $class = User::where('image')->get();
-        return redirect('/class',['classes' => $class]);
+    public function show($category)
+    {
+        $classes = Classes::all();
+        $users = DB::select("SELECT * FROM `users` WHERE role = 'student' AND class = '$category' ");
+        return view('admin.dataSiswas', compact('users', 'classes'));
+    }   
+
+    public function modul()
+    {
+        $modul = Modul::all();
+        return view('admin.modul.index', ['modul'=>$modul]);
+    }
+
+    public function createModul(Request $request)
+    {
+        // learning
+        $file = $request->file('learning');
+
+        $nama_file = time() . "_" . $file->getClientOriginalName();
+
+        $tujuan_upload = 'modul';
+        $file->move($tujuan_upload, $nama_file);
+
+        Modul::create([
+            'basic_competencies' => $request->basic,
+            'subject_matter' => $request->subject,
+            'learning_moduls' => $nama_file,
+            'video_tutorials' => $request->video,
+            'class_category' => $request->class,
+            'due_date' => $request->due
+        ]);
+        Session::flash('sukses','Successfully Adding Data');
+        return redirect('/moduls');
+    }
+
+    public function deleteModul($id)
+    {
+        Modul::destroy($id);
+        return redirect('/moduls');
+    }
+
+    public function updateModul(Request $request, $id)
+    {
+        // learning
+        $file = $request->file('learning');
+
+        $nama_file = time() . "_" . $file->getClientOriginalName();
+
+        $tujuan_upload = 'modul';
+        $file->move($tujuan_upload, $nama_file);
+
+        $update = Modul::find($id);
+        $update->basic_competencies = $request->basic;
+        $update->subject_matter = $request->subject;
+        $update->learning_moduls = $nama_file;
+        $update->video_tutorials = $request->video;
+        $update->class_category = $request->class;
+        $update->due_date = $request->due;
+        $update->save();
+
+        return redirect('/moduls');
+    }
+
+    // Cetak PDF
+    public function cetak_pdfIns()
+    {
+    	$users = User::where('role', 'instructor')->get();
+    	$pdf = PDF::loadview('admin.pdf.dataIns_pdf',['users'=>$users]);
+        // return $pdf->stream();
+    	return $pdf->download('laporan-Data_Instructor.pdf');
+    }
+
+    public function cetak_pdfMember($category)
+    {
+        $class = User::find($category);
+        // $class = User::where('class', $category);
+        $users = DB::select("SELECT * FROM `users` WHERE role = 'student' AND class = '$class' ");
+    	$pdf = PDF::loadview('admin.pdf.dataMember_pdf',['users'=>$users]);
+    	// return $pdf->download('laporan-Data_Member.pdf');
+
+        return $pdf->stream();
     }
 }

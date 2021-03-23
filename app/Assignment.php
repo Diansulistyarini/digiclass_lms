@@ -11,4 +11,9 @@ class Assignment extends Model
     [
         'name','class_category','subject_matter','online_text','file','date','score'
     ];
+
+    public function classes()
+    {
+        return $this->hasMany('App\Classes', 'id', 'category');
+    }
 }

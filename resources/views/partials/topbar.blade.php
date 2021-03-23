@@ -177,12 +177,23 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
+                                @if (Auth::user()->photo == null)
+                                    <img src="{{asset ('photo/user.png')}}" alt="user" class="rounded-circle" width="40" height="40">
+                                @else
+                                    <img src="{{asset ('photo/'.Auth::user()->photo)}}" alt="user" class="rounded-circle" width="50" height="50">
+                                @endif
+                            <span class="ml-2 d-none d-lg-inline-block"><span>Hello,</span> <span
+                                    class="text-dark">{{ Auth::user()->name }}</span> <i data-feather="chevron-down"
+                                    class="svg-icon"></i></span>
+                            </a>
+                            {{-- <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
                                 <img src="{{asset ('photo/'.Auth::user()->photo)}}" alt="user" class="rounded-circle"
                                     width="40" height="50">
                                 <span class="ml-2 d-none d-lg-inline-block"><span>Hello,</span> <span
                                         class="text-dark">{{ Auth::user()->name }}</span> <i data-feather="chevron-down"
                                         class="svg-icon"></i></span>
-                            </a>
+                            </a> --}}
                             <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
                                  {{-- <div class="dropdown-divider"></div>
                                 <div class="pl-4 p-3"><a href="{{ route('change.password') }}" class="btn btn-sm btn-info">View Profile</a></div> --}}

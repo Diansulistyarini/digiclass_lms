@@ -11,4 +11,9 @@ class Modul extends Model
     [
         'basic_competencies','subject_matter','learning_moduls','video_tutorials','class_category','due_date'
     ];
+
+    public function class()
+    {
+        return $this->hasMany('App\Classes', 'id', 'category');
+    }
 }

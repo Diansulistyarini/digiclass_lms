@@ -7,12 +7,10 @@
     <!-- Page wrapper  -->
         <!-- ============================================================== -->
         <div class="page-wrapper">
-
             <!-- Bread crumb and right sidebar toggle -->
             <!-- ============================================================== -->
             <div class="page-breadcrumb">
                 <div class="row">
-
                     <div class="col-5 align-self-center">
                         <?php
                             $tanggal= mktime(date("m"),date("d"),date("Y"));
@@ -45,12 +43,23 @@
             <!-- ============================================================== -->
             <div class="container">
             <!-- DataTales Example -->
-                        <div class="card shadow mb-4">
+                        <div class="card shadow mt-4 mb-4">
+                            @if ($message = Session::get('sukses'))
+                            <div class="alert alert-success alert-block">
+                                <button type="button" class="close" data-dismiss="alert">×</button> 
+                                <strong>{{ $message }}</strong>
+                            </div>
+                            @endif
                             <div class="card-header py-3">
                                 <h6 class="m-0 font-weight-bold text-primary">DataTables 
                                     <span>
                                         <a data-toggle="modal" data-target="#addData" class="text-primary float-right">
                                             <i class="fas fa-plus"><span class="ml-2">Add Data</span></i>
+                                        </a>
+                                    </span>
+                                    <span>
+                                        <a href="/data_ins/cetak_pdf" target="_blank" class="text-danger float-right" style="margin-right: 10px"> 
+                                            <i class="fas fa-file-pdf"><span class="ml-2">Export PDF</span></i>
                                         </a>
                                     </span>
                                 </h6>
@@ -126,8 +135,7 @@
                                             @endif
                                     </div>
                                     <div class="form-group">
-                                        <label>Password </label>
-                                        <input type="password" name="password" id="password" class="form-control" placeholder="Password " aria-label="Password " aria-describedby="basic-addon1">
+                                        <input type="password" name="password" id="password" class="form-control" value="12345678" aria-label="Password " aria-describedby="basic-addon1" hidden>
                                             @if($errors->has('password'))
                                                     <div class="text-danger">
                                                         {{ $errors->first('password')}}
@@ -160,7 +168,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Role </label>
-                                        <input type="text" name="role" id="role" class="form-control" placeholder="Role" aria-label="Role" aria-describedby="basic-addon1">
+                                        <input type="text" name="role" id="role" class="form-control" value="instructor" aria-label="Role" aria-describedby="basic-addon1" readonly>
                                             @if($errors->has('role'))
                                                     <div class="text-danger">
                                                         {{ $errors->first('role')}}
@@ -260,6 +268,7 @@
                          <!-- End Modal Delete  -->
 
                     </div>
+
                 </div>
             </div>
         </div>

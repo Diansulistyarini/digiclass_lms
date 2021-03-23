@@ -21,11 +21,11 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('gender');
             $table->string('phone');
-            $table->string('photo');
-            $table->string('role')->default('student');
-            $table->string('instansi');
-            $table->string('class');
-            $table->string('struk');
+            $table->string('photo')->nullable();
+            $table->enum('role', ['admin', 'instructor', 'student'])->default('student');
+            $table->string('instansi')->nullable();
+            $table->string('class')->nullable();
+            $table->string('struk')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

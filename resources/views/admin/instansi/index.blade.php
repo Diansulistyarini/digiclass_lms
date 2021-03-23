@@ -59,9 +59,9 @@
                         <thead class="thead-dark">
                             <tr>
                                 <th scope="col" class="text-center">NO</th>
-                                <th scope="col" class="text-center">Name Instansi</th>
-                                <th scope="col" class="text-center">Person Instansi</th>
-                                <th scope="col" class="text-center">Address</th>
+                                <th scope="col" class="text-center">Nama Instansi</th>
+                                <th scope="col" class="text-center">Penanggung Jawab</th>
+                                <th scope="col" class="text-center">Alamat</th>
                                 <th scope="col" class="text-center">Action</th>
                             </tr>
                         </thead>
@@ -126,8 +126,8 @@
                             {{ csrf_field() }}
 
                             <div class="form-group">
-                                <label>Instansi Name </label>
-                                <input type="text" name="name" id="name" class="form-control" placeholder="Instansi Name" aria-label="basic" aria-describedby="basic-addon1">
+                                <label>Nama Instansi </label>
+                                <input type="text" name="name" id="name" class="form-control" placeholder="Nama Instansi" aria-label="basic" aria-describedby="basic-addon1">
                                 @if($errors->has('name'))
                                 <div class="text-danger">
                                     {{ $errors->first('name')}}
@@ -136,8 +136,8 @@
                             </div>
 
                             <div class="form-group">
-                                <label>Instansi Person</label>
-                                <input type="text" name="person" id="person" class="form-control" placeholder="Person" aria-label="person" aria-describedby="basic-addon1">
+                                <label>Penanggung Jawab</label>
+                                <input type="text" name="person" id="person" class="form-control" placeholder="Penanggung Jawab" aria-label="person" aria-describedby="basic-addon1">
                                 @if($errors->has('person'))
                                 <div class="text-danger">
                                     {{ $errors->first('person')}}
@@ -147,8 +147,8 @@
 
 
                             <div class="form-group">
-                                <label>Address</label>
-                                <input type="text" name="add" id="add" class="form-control" placeholder="Address" aria-label="add" aria-describedby="basic-addon1">
+                                <label>Alamat</label>
+                                <input type="text" name="add" id="add" class="form-control" placeholder="Alamat" aria-label="add" aria-describedby="basic-addon1">
                                 @if($errors->has('add'))
                                 <div class="text-danger">
                                     {{ $errors->first('add')}}

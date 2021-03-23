@@ -42,7 +42,13 @@
     <!-- ============================================================== -->
     <div class="container">
         <!-- DataTales Example -->
-        <div class="card shadow mb-4 mt-3">
+        <div class="card shadow mb-4 mt-4">
+            @if ($message = Session::get('sukses'))
+            <div class="alert alert-success alert-block">
+                <button type="button" class="close" data-dismiss="alert">×</button> 
+                <strong>{{ $message }}</strong>
+            </div>
+            @endif
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">DataTables
                     <span>
@@ -191,7 +197,14 @@
 
                             <div class="form-group">
                                 <label>Class Category</label>
-                                <input type="text" name="class" id="class" class="form-control" placeholder="Class Category" aria-label="class" aria-describedby="basic-addon1">
+                                <select class="custom-select my-1 mr-sm-2" id="class" name="class" class="form-control" placeholder="Class Category" aria-label="class" aria-describedby="basic-addon1"> 
+                                    <option value="0" selected disabled>Choose...</option>
+                                    @foreach ($class as $c)
+                                        <option value="{{ $c->caategory }}">
+                                            {{ $c->category }}
+                                        </option>
+                                    @endforeach
+                                </select> 
                                 @if($errors->has('class'))
                                 <div class="text-danger">
                                     {{ $errors->first('class')}}
@@ -270,7 +283,14 @@
 
                             <div class="form-group">
                                 <label>Class Category</label>
-                                <input type="text" name="class" id="class" class="form-control" value="{{$m->class_category}}"aria-label="class" aria-describedby="basic-addon1">
+                                <select class="custom-select my-1 mr-sm-2" id="class" name="class" class="form-control" aria-label="class" aria-describedby="basic-addon1" value="{{ old('category')}}"> 
+                                    <option value="0" selected disabled>Choose...</option>
+                                    @foreach ($class as $c)
+                                        <option value="{{ $c->category }}">
+                                            {{ $c->category }}
+                                        </option>
+                                    @endforeach
+                                </select> 
                                 @if($errors->has('class'))
                                 <div class="text-danger">
                                     {{ $errors->first('class')}}

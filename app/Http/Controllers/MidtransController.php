@@ -36,5 +36,26 @@ class MidtransController extends Controller
 
         return \Midtrans\Snap::getSnapToken($params);
     }
+
+    
+
+    public function getSnapToken2($params)
+    {
+        $this->midtransInit();
+        $params = array(
+            'transaction_details' => array(
+                'order_id' => rand(),
+                'gross_amount' => 10000,
+            ),
+            'customer_details' => array(
+                'first_name' => 'Dian',
+                'last_name' => 'Sulistyarini',
+                'email' => 'dian.pra@example.com',
+                'phone' => '08111222333',
+            ),
+        );
+
+        return \Midtrans\Snap::getSnapToken($params);
+    }
    
 }

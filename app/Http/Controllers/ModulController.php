@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Classes;
 use Illuminate\Http\Request;
 use App\Modul;
 
@@ -10,9 +11,10 @@ class ModulController extends Controller
     public function index()
     {
         $modul = Modul::all();
+        $class = Classes::all();
         // return echo($modul);
         // echo ($modul);
-        return view('admin.modul.index', ['modul'=>$modul]);
+        return view('admin.modul.index', compact('modul', 'class'));
     }
 
     // List Modul

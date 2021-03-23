@@ -37,14 +37,20 @@
             </div>
         </div>
     </div>
+    <br>
     <!-- ============================================================== -->
     <!-- End Bread crumb and right sidebar toggle -->
     <!-- ============================================================== -->
     <div class="container">
-        <!-- DataTales Example -->
-        <div class="card shadow mb-4 mt-3">
+        <div class="card shadow mt-4 mb-4">
+            @if ($message = Session::get('sukses'))
+            <div class="alert alert-success alert-block">
+                <button type="button" class="close" data-dismiss="alert">×</button> 
+                <strong>{{ $message }}</strong>
+            </div>
+            @endif
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">DataTables
+                <h6 class="m-0 font-weight-bold text-primary">DataTables 
                     <span>
                         <a data-toggle="modal" data-target="#addData" class="text-primary float-right">
                             <i class="fas fa-plus"><span class="ml-2">Add Data</span></i>
@@ -59,8 +65,9 @@
                         <thead class="thead-dark">
                             <tr>
                                 <th scope="col" class="text-center">NO</th>
-                                <th scope="col" class="text-center">Class Category</th>
-                                <th scope="col" class="text-center">Deskripsi</th>
+                                <th scope="col" class="text-center">Category Class</th>
+                                <th scope="col" class="text-center">Deskription Class</th>
+                                <th scope="col" class="text-center">Instructor/Mentor</th>
                                 <th scope="col" class="text-center">Image</th>
                                 <th scope="col" class="text-center">Video</th>
                                 <th scope="col" class="text-center">Action</th>
@@ -68,29 +75,91 @@
                         </thead>
                         <tbody>
                             @foreach($classes as $c)
-                            <tr>
-                                <th scope="row" class="text-center">{{ $loop->iteration }}</th>
-                                <td class="text-center">{{ $c->category }}</td>
-                                <td class="text-center">{{ $c->deskripsi }}</td>
-                                <td>
-                                    <img src="{{ asset ('image_class/'. $c->image) }}" alt=" {{ $c->image }}" width="100px">
-                                </td>
-                                <td class="text-center">{{ $c->video }}</td>
-
-                                <td class="text-center">
-                                    <a data-toggle="modal" data-target="#modalUpdate{{ $c->id }}" class="btn btn-small text-success">
-                                        <i class="fa fa-edit"></i><span class="ml-2">Edit</span>
-                                    </a>
-                                    <a data-toggle="modal" data-target="#deleteData{{$c->id}}" class="btn btn-small text-danger"><i class=" fa fa-trash"></i><span class="ml-2">Delete</span></a>
-                                </td>
-                            </tr>
+                                <tr>
+                                    <th scope="row" class="text-center">{{ $loop->iteration }}</th>
+                                    <td class="text-center">{{ $c->category }}</td>
+                                    <td class="text-center">{{ $c->deskripsi }}</td>
+                                    <td class="text-center">{{ $c->name_ins }}</td>
+                                    <td class="text-center">{{ $c->image }}</td>
+                                    <td class="text-center">{{ $c->video }}</td>
+                            
+                                    <td class="text-center">
+                                        <a data-toggle="modal" data-target="#modalUpdate{{ $c->id }}" class="btn btn-small text-success">
+                                            <i class="fa fa-edit"></i><span class="ml-2">Edit</span>
+                                        </a>
+                                        <a data-toggle="modal" data-target="#deleteData{{$c->id}}" class="btn btn-small text-danger"><i class=" fa fa-trash"></i><span class="ml-2">Delete</span></a>
+                                    </td>
+                                </tr>
                             @endforeach
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
+        {{-- @if ($message = Session::get('sukses'))
+        <div class="alert alert-success alert-block">
+            <button type="button" class="close" data-dismiss="alert">×</button> 
+            <strong>{{ $message }}</strong>
+        </div>
+        @endif
+        <div class="card shadow mb-4 mt-3">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">DataTables
+                    <span>
+                        <a data-toggle="modal" data-target="#addData" class="text-primary float-right">
+                            <i class="fas fa-plus"><span class="ml-2">Add Data</span></i>
+                        </a>
+                    </span>
+                </h6>
+            </div> --}}
+            
+            {{-- @if($classes->count() > 0)
+            <div class="row ml-2 mr-2">
+                @foreach($classes as $c)
+                <div class="col-md-4 mt-4">
+                    <div class="card shadow mb-4">
+                        <img class="card-img-top" src="{{ asset ('image_class/'. $c->image) }}" alt="Card image cap" width="100" height="180">
+                        <div class="card-body" href="/select/class">
+                        <b><p class="card-text">{{ $c->category }}</p></b>
+                        <p class="card-text">Deskripsi : {{ $c->deskripsi }}</p>
+                        {{-- <p class="card-text">Link Video Pembelajaran : {{ $c->video }}</p> --}}
+                        {{-- <a data-toggle="modal" data-target="#modalUpdate{{ $c->id }}"
+                            class="btn btn-small text-success">
+                            <i class="fa fa-edit"></i><span class="ml-2">Edit</span>
+                        </a>
+                        <a data-toggle="modal" data-target="#deleteData{{$c->id}}" class="btn btn-small text-danger"><i
+                                class=" fa fa-trash"></i><span class="ml-2">Delete</span></a>
+                        </div>
+                    </div>
+                    </a>
+                </div>
+                @endforeach
+            </div>
+            @else
+            <div class="row justify-content-center" style="margin-top: 15%">
+                <div class="col text-center">
+                    <b>Project Belum Tersedia</b>
+                </div>
+            </div>
+            @endif --}}
 
+            {{-- <div class="rows">
+                <br>
+                @foreach ($classes as $c)
+                <div class="col">
+                     <div class="card-group col-lg-3">
+                    <div class="card">
+                      <img class="card-img-top" src="{{ asset ('image_class/'. $c->image) }}" alt="Card image cap">
+                      <div class="card-body">
+                        <h5 class="card-title" href="/" >{{ $c->category }}</h5>
+                      </div>
+                    </div>
+                  </div>   
+                </div>
+            @endforeach
+
+            </div> --}}
+        </div>
 
         @foreach($classes as $s)
         <div class="modal" tabindex="-1" id="deleteData{{$s->id}}">
@@ -150,6 +219,15 @@
                             @endif
                     </div>
                     <div class="form-group">
+                        <label>Instructor/Mentor</label>
+                        <input type="text" name="name_ins" id="name_ins" class="form-control" placeholder="Instructor/Mentor" aria-label="deskripsi" aria-describedby="basic-addon1">
+                            @if($errors->has('name_ins'))
+                                    <div class="text-danger">
+                                        {{ $errors->first('name_ins')}}
+                                    </div>
+                            @endif
+                    </div>
+                    <div class="form-group">
                         <label>Image </label>
                         <input type="file" name="image" id="image" class="form-control" placeholder="Image " aria-label="image " aria-describedby="basic-addon1">
                             @if($errors->has('image'))
@@ -202,6 +280,10 @@
                         <div class="form-group">
                             <label for="">Deskription Class</label>
                             <input type="text" class="form-control" id="deskripsi" name="deskripsi" value="{{ $c->deskripsi}}">
+                        </div>
+                        <div class="form-group">
+                            <label for="">Instructor/Mentor</label>
+                            <input type="text" class="form-control" id="name_ins" name="name_ins" value="{{ $c->name_ins}}">
                         </div>
                         <div class="form-group">
                             <label for="">Image</label>
